@@ -173,6 +173,9 @@ body{
 .forum-button{
 	background: url('../images/icons/group.png') no-repeat left;
 }
+.reply-button {
+	background: url('../images/icons/reply.png') no-repeat left;
+}
 
 /*
 .add-button:hover{

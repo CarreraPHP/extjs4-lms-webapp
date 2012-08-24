@@ -53,6 +53,12 @@ Ext.define('MyApp.view.workspaceView', {
                 },{
                 	xtype : 'contentfullscreenview',
                 	itemId : 'content-fullscreen-view'
+                },{
+                	xtype : 'forumthreadview',
+                	itemId : 'forum-thread-view'
+                },{
+                	xtype : 'replyforumview',
+                	itemId : 'reply-forum-view'
                 }]
             }, {
                 xtype : 'tabpanel',

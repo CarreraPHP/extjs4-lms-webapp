@@ -7,7 +7,6 @@ Ext.define('MyApp.store.commentStore', {
 		me.callParent([Ext.apply({
 			autoLoad : false,
 			autoSync : false,
-			//storeId : 'SabforumStore',
 			model : 'MyApp.model.commentModel',
 			proxy : {
 				type : 'ajax',

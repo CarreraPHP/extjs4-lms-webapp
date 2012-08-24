@@ -5,12 +5,9 @@
 Ext.define('MyApp.model.commentModel', {
     extend: 'Ext.data.Model',
     fields: [
-        {name: 'id', type: 'string'},	
-        {name: 'name', type: 'string'},
-        {name: 'username', type: 'string'},
-		{name: 'description', type: 'string'},
+        {name: 'topic_id', type: 'string'},	
+        {name: 'content_text', type: 'string'},
         {name: 'created_date', type: 'string'},
-        {name: 'course_id', type: 'string'},
-        
+        {name: 'user_email', type: 'string'}        
     ]
 });

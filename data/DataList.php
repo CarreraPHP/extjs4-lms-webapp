@@ -115,6 +115,10 @@ namespace sabreHcode {
 					case 'forumTopic' :
 						$returnVal = DataList::forumTopic($display, $type, $parent);
 						break;
+						
+					case 'forumContent' :
+						$returnVal = DataList::forumContent($display, $type, $parent);
+						break;
 					
 					case 'forumSelectedTopic' :
 						$returnVal = DataList::forumSelectedTopic($display, $type, $parent);
@@ -343,6 +347,14 @@ namespace sabreHcode {
 			$oCourseInstance = new Content(Database::load());
 			$aAllForumTopicList = $oCourseInstance -> getAllForumTopic($display, $type, $parent);
 			return array('success' => true, 'message' => 'return all records successfully', 'data' => $aAllForumTopicList, 'total' => count($aAllForumTopicList));
+		}
+		
+		public static function forumContent($display, $type, $parent) {
+			\sabreHcode\configuration\Application::load("\sabreHcode\data\service\Content");
+
+			$oCourseInstance = new Content(Database::load());
+			$aAllForumcontent = $oCourseInstance -> getAllForumContent($display, $type, $parent);
+			return array('success' => true, 'message' => 'return all records successfully', 'data' => $aAllForumcontent, 'total' => count($aAllForumcontent));
 		}
 		
 		public static function forumSelectedTopic($display, $type, $parent) {

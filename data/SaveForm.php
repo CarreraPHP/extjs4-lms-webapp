@@ -28,7 +28,9 @@ namespace sabreHcode {
 				$returnVal = SaveForm::ImageContent($_POST);
 			} else if ($_POST['page'] == 'Flash_Content') {
 				$returnVal = SaveForm::FlashContent($_POST);
-			} 
+			} else if($_POST['page'] == 'replyForum'){
+				$returnVal = SaveForm::ReplyForum($_POST);
+			}
 			echo $returnVal;
 		}
 
@@ -124,6 +126,21 @@ namespace sabreHcode {
 				if ($rawResult) {
 					return json_encode(array('success' => true, 'message' => 'Record updated successfully'));
 				}
+			}
+		}
+
+		public static function ReplyForum($data) {
+			$dbInstance = Database::load();
+			$type_id = $data['type_id'];
+			$name = $data['forum'];
+			$topicId = $data['topic_id'];
+			echo $description = addslashes($data['description']);
+			$text = strip_tags($data['text']);
+			$course_id = $data['course_id'];
+			echo $insert = "INSERT INTO `sabre`.`pt_content`(`name`, `description`, `text`, `type_id`, `topic_id`, `course_id`,`deleted`, `sort_order`,`created_by`,`created_date`,`updated_by`,`updated_date`) VALUES('$name', '$description', '$text', '$type_id', '$topicId', '$course_id', 'F', '99', '1', NOW(), '1', NOW())";
+			$rawResult = $dbInstance -> query($insert);
+			if ($rawResult) {
+				return json_encode(array('success' => true, 'message' => 'Record inserted successfully'));
 			}
 		}
 
