@@ -7,10 +7,11 @@ Ext.define('MyApp.model.forumModel', {
     fields: [
         {name: 'id', type: 'string'},	
         {name: 'name', type: 'string'},
-        {name: 'username', type: 'string'},
+        {name: 'user_email', type: 'string'},
 		{name: 'description', type: 'string'},
         {name: 'created_date', type: 'string'},
-        {name: 'course_id', type: 'string'},
+        {name: 'course_id', type: 'string'}
+        
         
     ]
 });

@@ -103,6 +103,11 @@ body{
     padding: 0 20px;
 	background: url('../images/icons/group.png') no-repeat left;
 }
+.content-icon-quiz {
+	display: block;
+    padding: 0 20px;
+	background: url('../images/quiz.png') no-repeat left;
+}
 
 .add-button{
 	background: url('../images/icons/add.png') no-repeat left;
@@ -124,6 +129,12 @@ body{
 }
 .logout-button{
 	background: url('../images/icons/lock.png') no-repeat left;
+}
+.save-Continue-button{
+	background: url('../images/icons/page_save.png') no-repeat left;
+}
+.leave-quiz{
+	background: url('../images/icons/cross.png') no-repeat left;
 }
 .register-button{
 	background: url('../images/icons/user_add.png') no-repeat left;
@@ -175,6 +186,45 @@ body{
 }
 .reply-button {
 	background: url('../images/icons/reply.png') no-repeat left;
+}
+
+.forum-item {
+	font-size: 12px;
+	position: relative;
+/*	border-bottom: 2px double #222;*/
+	padding: 0 10px;
+}
+
+.forum-item:hover .forum-user{
+	border-top: 1px solid graytext;
+}
+
+.forum-item .forum-title {
+	font-size: 14px;
+	font-weight: bold;
+/*	border-bottom: 1px double #222;*/
+}
+
+.clear-fix {
+	clear: both;
+}
+
+.forum-item .forum-date {
+	position: absolute;
+	top: 3px;
+	right: 1px;
+	font-weight: bold;
+}
+
+.forum-item .forum-desc {
+	padding: 5px 10px;
+	
+}
+
+.forum-item .forum-user {
+	margin: 10px 0 0 0;
+	border-top: 1px dashed silver;
+	font-size: 11px;
 }
 
 /*
@@ -323,3 +373,31 @@ body .ux-notification-light {
 #main .subcolumns .registerForm div.input div.submit {float:right; margin:0 260px 0 0;}
 #main .subcolumns .registerForm div.input div.submit .submitBtn {width:auto; background:#514134; color:#FFFFFF; border:none; cursor:pointer; font-size:18px; padding:5px 10px;}
 #main .subcolumns .registerForm label.error {float:left; display:block; background:url(../images/error.png) no-repeat left 4px; width:auto !important; padding:6px 0 3px 22px !important; color:#ff0000; height:18px; margin-left:5px !important;}
+.databox {
+	width : 100%;	
+}
+.databox ul{
+	clear: right;
+}
+.databox ul li {	
+	clear: both;
+}
+.databox ul li div{
+	font:12px "Verdana", Geneva, Arial, Helvetica, sans-serif;
+	padding: 4px;
+	border-bottom: #F2F2F2 solid 1px;
+	border-right: #F2F2F2 solid 1px;
+	margin-top: 2px;
+	margin-right: 1px;
+	display : block;
+	float:left;
+	width: 79%;
+	min-height: 30px;
+}
+.databox ul li div:first-child{
+	font-weight: bold;
+	width: 20%;	
+}
+.databox ul li div {
+	font-weight: bold;
+}

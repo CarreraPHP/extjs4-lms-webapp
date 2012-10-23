@@ -90,10 +90,9 @@ Ext.define('MyApp.view.AddForumTopicView', {
 							success : function(response) {
 								var currCon = Ext.ComponentQuery.query('workspaceview container[region=center]');
 								currCon[0].getLayout().setActiveItem('content-panel');
-
-								var topicListArr = Ext.ComponentQuery.query('contentforumview #forumTopic');
-								topicListArr[0].getStore().load();
-
+								var topicListArr = Ext.ComponentQuery.query('contentforumview');
+								topicListArr[1].store.load();
+								
 
 								Ext.create('Ext.ux.window.Notification', {
 									hideDuration : 500,

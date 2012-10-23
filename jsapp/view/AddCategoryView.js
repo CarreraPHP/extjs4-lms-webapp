@@ -24,11 +24,11 @@ Ext.define('MyApp.view.AddCategoryView', {
 				},
 				items : [{
 					xtype : 'button',
-					itemId :'submit-button',
+					itemId : 'submit-button',
 					text : lang.submit,
-					formBind : true, 
+					formBind : true,
 					disabled : true
-					
+
 				}, {
 					xtype : 'button',
 					text : lang.cancel,
@@ -50,7 +50,7 @@ Ext.define('MyApp.view.AddCategoryView', {
 				allowBlank : false
 			}, {
 				xtype : 'hidden',
-				value: 'new',
+				value : 'new',
 				name : 'id'
 			}, {
 				xtype : 'textfield',
@@ -63,19 +63,19 @@ Ext.define('MyApp.view.AddCategoryView', {
 				xtype : 'hidden',
 				name : 'parent_id'
 
-			},{
+			}, {
 				xtype : 'hidden',
 				name : 'actual_parent_id'
 
-			},{
+			}, {
 				xtype : 'hidden',
 				name : 'actual_parent_name'
 
-			},{
+			}, {
 				xtype : 'hidden',
 				name : 'parent_name'
 
-			},{
+			}, {
 				xtype : 'hidden',
 				name : 'page',
 				value : 'Category'
@@ -85,7 +85,7 @@ Ext.define('MyApp.view.AddCategoryView', {
 				labelWidth : 70,
 				anchor : '100%',
 				name : 'description'
-				
+
 			}]
 		});
 

@@ -49,6 +49,7 @@ Ext.define('MyApp.view.UserAccessView', {
 						itemSelector : '.userList',
 						singleSelect : true,
 						store : Ext.create('MyApp.store.userAccessStore')
+						
 					}]
 				}, {
 					xtype : 'form',
@@ -438,7 +439,7 @@ Ext.define('MyApp.view.UserAccessView', {
 							header : lang.create,
 							width : 80,
 							dataIndex : 'C',
-							renderer : function(value, metadata, record) {
+							renderer : function(me, value, metadata, record) {
 								if(value == 'N') {
 									this.columns[1].items[0].icon = 'resources/images/icons/cancel.png';
 								} else {

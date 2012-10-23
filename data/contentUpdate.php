@@ -25,7 +25,7 @@ namespace sabreHcode {
 				$returnVal = contentUpdate::content($request -> params, "update", $display, $parent, $type);
 			} else if ($module == 'accessCategory') {
 				$returnVal = contentUpdate::accessCategory($request -> params);
-			} else if($module == 'forumTopic'){
+			} else if ($module == 'forumTopic') {
 				$returnVal = contentUpdate::forumTopic($request -> params, "update", $display, $parent, $type);
 			}
 			echo $returnVal;
@@ -72,7 +72,6 @@ namespace sabreHcode {
 		public static function forumTopic($params, $crud, $display, $parent, $type) {
 			$dbInstance = Database::load();
 			//$params -> course_id = preg_replace('/cou/', '', $params -> course_id);
-
 			if (preg_match('/new/', $params -> id)) {
 				// INSERT PROCESS....
 				$insert = "INSERT `sabre`.`pt_content` ";
@@ -93,22 +92,16 @@ namespace sabreHcode {
 				$update = "UPDATE `sabre`.`pt_topics`";
 				$update .= " SET `name` = '" . $params -> name . "', `description` = '" . $params -> description . "'";
 				$update .= " WHERE `id` = '" . $params -> id . "'";
-
 				$rawResult = $dbInstance -> query($update);
 				if ($rawResult) {
-					\sabreHcode\configuration\Application::load("\sabreHcode\data\service\Content");
-
-					$oCourseInstance = new Content($dbInstance);
-					$aAllForumTopic = $oCourseInstance -> getAllForumTopic($display, $type, $parent);
-
-					return json_encode(array('success' => true, 'message' => 'Record at ' . $params -> id . ' updated successfully', 'data' => $aAllForumTopic, 'total' => count($aAllForumTopic)));
+					return json_encode(array('success' => true, 'message' => 'Record at ' . $params -> id . ' updated successfully'));
 				}
 			}
 		}
 
 		public static function forumContent($params, $crud, $display, $parent, $type) {
 			$dbInstance = Database::load();
-			
+
 			//$params -> course_id = preg_replace('/cou/', '', $params -> course_id);
 
 			if (preg_match('/new/', $params -> id)) {
@@ -145,7 +138,7 @@ namespace sabreHcode {
 		}
 
 		public static function accessCategory($params) {
-			
+
 			$dbInstance = Database::load();
 			$params -> id = preg_replace('/acs/', '', $params -> id);
 			if ($params -> module == 'category') {
@@ -170,16 +163,16 @@ namespace sabreHcode {
 				$insert .= "WHERE `pt_user_role_meta`.`module_id` = '$module_id' AND `pt_user_role_meta`.`role_id` = '$userRole'";
 				$dbInstance -> query($insert);
 				/*
-				if ($dbInstance -> query($insert)) {
-				
-					\sabreHcode\configuration\Application::load("\sabreHcode\data\service\AccessCategory");
+				 if ($dbInstance -> query($insert)) {
 
-					$oCourseInstance = new AccessCategory($dbInstance);
-					$aAllContentList = $oCourseInstance -> getAllCategories($displayMode = '', $user_id, $params -> module);
+				 \sabreHcode\configuration\Application::load("\sabreHcode\data\service\AccessCategory");
 
-					return json_encode(array('success' => true, 'message' => 'Record at ' . $params -> id . ' updated successfully', 'data' => $aAllContentList, 'total' => count($aAllContentList)));
-				}*/
-			}else if($params -> module == 'course'){
+				 $oCourseInstance = new AccessCategory($dbInstance);
+				 $aAllContentList = $oCourseInstance -> getAllCategories($displayMode = '', $user_id, $params -> module);
+
+				 return json_encode(array('success' => true, 'message' => 'Record at ' . $params -> id . ' updated successfully', 'data' => $aAllContentList, 'total' => count($aAllContentList)));
+				 }*/
+			} else if ($params -> module == 'course') {
 				$user_id = $params -> user_id;
 				$module_id = 2;
 				$id = $params -> id;
@@ -200,7 +193,7 @@ namespace sabreHcode {
 				$insert .= "FROM `sabre`.`pt_user_role_meta`";
 				$insert .= "WHERE `pt_user_role_meta`.`module_id` = '$module_id' AND `pt_user_role_meta`.`role_id` = '$userRole'";
 				$dbInstance -> query($insert);
-				
+
 			}
 
 		}

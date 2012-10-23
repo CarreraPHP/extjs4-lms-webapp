@@ -37,6 +37,9 @@ Ext.define('MyApp.controller.abControl', {
             "abviewport button[itemId='userAccess']" : {
                 toggle : this.onUserAccess
             },
+            'userlist':{
+                render:	this.setSession
+            },
             "loginview button[itemId='register']" : {
                 click : this.onRegister
             },
@@ -163,7 +166,7 @@ Ext.define('MyApp.controller.abControl', {
     },
     onapplicationBaseCardChange : function(me, layout, opts) {
     	
-    	// console.log(me);
+        // console.log(me);
 
         var selItem = layout.getActiveItem();
         var northArr = Ext.ComponentQuery.query('abviewport toolbar[region="north"]'), northRegion = northArr[0];
@@ -201,29 +204,7 @@ Ext.define('MyApp.controller.abControl', {
                 this.createNotification(lang.logout, lang.failure.logout, 'error', 't');
             },
             success : function(response) {
-            	window.location = "index.php";
-               /* var logResponse = Ext.decode(response.responseText);
-                if(logResponse.success) {
-                    window.user = '';
-                    var appArr = Ext.ComponentQuery.query('abviewport container[region="center"]');
-                    var appViewInstance = appArr[0];
-                    appViewInstance.getLayout().setActiveItem('login-view-card');
-                    
-                    var userProfileGrid = appViewInstance.down('#user-profile-grid');
-                    userProfileGrid.setSource({});
-                    
-                    this.createNotification(lang.logout, logResponse.message, 'information', 't');
-
-                    var appArr = Ext.ComponentQuery.query('#login-detail-label');
-
-                    var appViewInstance = appArr[0];
-                    appViewInstance.tpl.overwrite(appViewInstance.el, {
-                        screenname : window.user ? lang.welcome + ', ' + window.user.data[0].screenname : lang.guest
-                    });
-                    var northArr = Ext.ComponentQuery.query('abviewport container[region="north"]'), northRegion = northArr[0];
-
-                    northRegion.doLayout();
-                }*/
+                window.location = "index.php";
             }
         });
     },
@@ -245,7 +226,6 @@ Ext.define('MyApp.controller.abControl', {
         if(pressed) {
             appViewInstance.getLayout().setActiveItem('useraccess-view-card');
         } else {
-        	console.log(appViewInstance.getLayout().setActiveItem('ws-view-card'));
             appViewInstance.getLayout().setActiveItem('ws-view-card');
         }
 
@@ -390,14 +370,14 @@ Ext.define('MyApp.controller.abControl', {
         }
     },
     formatUserData : function(user) {
-    	console.log(user);
-    	var userData = '{"' + lang.firstname + '" : "' + user.first_name + '", "' + lang.lastname + '" : "' + user.last_name + '", "' + lang.email + '" : "' + user.user_email + '", "' + lang.username + '" : "' + user.screenname + '", "' + lang.role + '" : "' + user.role_name + '"}';
+        console.log(user);
+        var userData = '{"' + lang.firstname + '" : "' + user.first_name + '", "' + lang.lastname + '" : "' + user.last_name + '", "' + lang.email + '" : "' + user.user_email + '", "' + lang.username + '" : "' + user.screenname + '", "' + lang.role + '" : "' + user.role_name + '"}';
         var user = Ext.decode(userData);
         return user;
     },
     onViewportActivate : function(abstractcomponent, options) {
         var layoutInstance = abstractcomponent.getLayout();
-    //console.log(layoutInstance);
+        console.log(layoutInstance);
     // layoutInstance.setActiveItem('wscard');
     },
     createNotification : function(title, html, type, position) {

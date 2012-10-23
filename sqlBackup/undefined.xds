@@ -1,0 +1,56 @@
+{
+    "settings": {
+        "urlPrefix": "http://localhost:8081/sabre/",
+        "directAPI": "",
+        "spacesToIndent": 4,
+        "codeGenFormat": "Class",
+        "exportPath": "/var/www/sabre",
+        "extPath": "http://localhost:8081/sabre/js/lib/ext-4.0/",
+        "senchaIoPath": "/",
+        "lineEnding": "LF",
+        "instantiateStore": true,
+        "genTimestamps": false,
+        "saveOnDeploy": false,
+        "appName": "MyApp",
+        "mapsAPI": "http://maps.google.com/maps/api/js?sensor=true",
+        "senchaIoKey": ""
+    },
+    "xdsVersion": "2.0.0",
+    "framework": "ext40",
+    "topInstanceFileMap": {
+        "50da6f03-2d9b-478e-a772-fff2f51825c4": {
+            "paths": [
+                "app/view/applicationBase.js",
+                "app/view/ui/applicationBase.js",
+                "app/view/Viewport.js"
+            ],
+            "className": "applicationBase"
+        },
+        "7a74d5dd-eef5-480d-be6d-cc80926b0538": {
+            "paths": [
+                "app/view/loginView.js",
+                "app/view/ui/loginView.js"
+            ],
+            "className": "loginView"
+        },
+        "ecb2d532-22de-4d36-8702-8190bb5bffc0": {
+            "paths": [
+                "app/view/workspaceView.js",
+                "app/view/ui/workspaceView.js"
+            ],
+            "className": "workspaceView"
+        },
+        "d298f632-0ce4-4fdf-b257-55a667840a87": {
+            "paths": [
+                "app/controller/abControl.js"
+            ],
+            "className": "abControl"
+        }
+    },
+    "expandedState": {
+        "data": true,
+        "model": true,
+        "component": true,
+        "controller": true
+    }
+}

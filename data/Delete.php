@@ -51,7 +51,7 @@ namespace sabreHcode {
 		}
 
 		public static function course($data) {
-
+			
 			$dbInstance = Database::load();
 
 			$course_id = preg_replace('/cou/', '', $data['id']);
@@ -96,15 +96,30 @@ namespace sabreHcode {
 		
 		
 		public static function content($data) {
-
+			
+			$user_email = $_SESSION['userDetails'][0]['user_email'];
 			$dbInstance = Database::load();
-
-			$id = $data['id'];
-			$update_Content = "UPDATE `sabre`.`pt_content` SET `deleted` = 'T' WHERE `id` = '$id'";
-			$rawResult = $dbInstance -> query($update_Content);
-			if ($rawResult) {
-				return json_encode(array('success' => true, 'message' => 'Content Successfully Deleted'));
+			if(isset($data['type']) && $data['type'] == 'Forum'){
+				if($user_email == $data['user'] || $user_email == 'admin@sabre.in'){
+					$id = $data['id'];
+					$update_Content = "UPDATE `sabre`.`pt_content` SET `deleted` = 'T' WHERE `id` = '$id'";
+					$rawResult = $dbInstance -> query($update_Content);
+					if ($rawResult) {
+						return json_encode(array('success' => true, 'message' => 'Content Successfully Deleted'));
+					}
+				}else{
+					return json_encode(array('success' => true, 'message' => 'You Dont have rights to delete this content'));
+				}
+					
+			}else{
+				$id = $data['id'];
+				$update_Content = "UPDATE `sabre`.`pt_content` SET `deleted` = 'T' WHERE `id` = '$id'";
+				$rawResult = $dbInstance -> query($update_Content);
+				if ($rawResult) {
+					return json_encode(array('success' => true, 'message' => 'Content Successfully Deleted'));
+				}
 			}
+			
 		}
 
 		public static function accessCategory($data) {

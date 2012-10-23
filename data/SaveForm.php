@@ -110,8 +110,10 @@ namespace sabreHcode {
 			$description = strip_tags($data['description']);
 			$course_id = $data['course_id'];
 			$course_id = substr("$course_id", 3);
+			$user_id = $_SESSION['userDetails'][0]['id'];
 			if ($id == 'new') {
-				$insert = "INSERT INTO `sabre`.`pt_topics`(`name`, `description`,`course_id`,`deleted`, `sort_order`,`created_by`,`created_date`,`updated_by`,`updated_date`, `type_id`) VALUES('$name', '$description', '$course_id', 'F', '99', '1', NOW(), '1', NOW(), '".$data['type_id']."')";
+				
+				$insert = "INSERT INTO `sabre`.`pt_topics`(`name`, `description`,`course_id`,`deleted`, `sort_order`,`created_by`,`created_date`,`updated_by`,`updated_date`, `type_id`) VALUES('$name', '$description', '$course_id', 'F', '99', '$user_id', NOW(), '1', NOW(), '".$data['type_id']."')";
 				$rawResult = $dbInstance -> query($insert);
 				if ($rawResult) {
 					return json_encode(array('success' => true, 'message' => 'Record inserted successfully'));
@@ -134,10 +136,10 @@ namespace sabreHcode {
 			$type_id = $data['type_id'];
 			$name = $data['forum'];
 			$topicId = $data['topic_id'];
-			echo $description = addslashes($data['description']);
 			$text = strip_tags($data['text']);
 			$course_id = $data['course_id'];
-			echo $insert = "INSERT INTO `sabre`.`pt_content`(`name`, `description`, `text`, `type_id`, `topic_id`, `course_id`,`deleted`, `sort_order`,`created_by`,`created_date`,`updated_by`,`updated_date`) VALUES('$name', '$description', '$text', '$type_id', '$topicId', '$course_id', 'F', '99', '1', NOW(), '1', NOW())";
+			$user_id = $_SESSION['userDetails'][0]['id'];
+			$insert = "INSERT INTO `sabre`.`pt_content`(`name`, `description`, `text`, `type_id`, `topic_id`, `course_id`,`deleted`, `sort_order`,`created_by`,`created_date`,`updated_by`,`updated_date`) VALUES('$name', '', '$text', '$type_id', '$topicId', '$course_id', 'F', '99', '$user_id', NOW(), '1', NOW())";
 			$rawResult = $dbInstance -> query($insert);
 			if ($rawResult) {
 				return json_encode(array('success' => true, 'message' => 'Record inserted successfully'));

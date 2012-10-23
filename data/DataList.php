@@ -2,6 +2,7 @@
 namespace sabreHcode {
 
 	use \sabreHcode\data\service\Category;
+	use \sabreHcode\data\service\Quiz;
 	use \sabreHcode\data\service\AccessCategory;
 	use \sabreHcode\data\service\Content;
 	use \sabreHcode\data\service\Course;
@@ -17,6 +18,7 @@ namespace sabreHcode {
 	use \sabreHcode\configuration\Database;
 	use \sabreHcode\configuration\DataCredential;
 	
+	
 
 	require_once '../configuration/Application.php';
 
@@ -31,7 +33,7 @@ namespace sabreHcode {
 
 			\sabreHcode\configuration\Application::load("\sabreHcode\configuration\DataCredential");
 			\sabreHcode\configuration\Application::load("\sabreHcode\configuration\Database");
-
+			
 			if (isset($_GET['module'])) {
 
 				if (isset($_GET['display'])) {
@@ -73,7 +75,17 @@ namespace sabreHcode {
 				if(isset($_GET['module_sub_id'])){
 					$mod_sub_id = $_GET['module_sub_id'];
 				}
+				if(isset($_GET['course_id'])){
+					$course_id = $_GET['course_id'];
+				}
+				if(isset($_GET['topic_id'])){
+					$topic_id = $_GET['topic_id'];
+				}
+				if(isset($_GET['content_id'])){
+					$content_id = $_GET['content_id'];
+				}
 				
+			
 				switch ($_GET['module']) {
 					case 'course' :
 						$returnVal = DataList::course($display, $type, $parent);
@@ -164,6 +176,9 @@ namespace sabreHcode {
 					case 'topicPermission' :
 						$returnVal = DataList::topicPermission($role_id, $module_id, $userId, $mod_sub_id, $_GET['column']);
 						break;
+					case 'Quiz' : 
+						$returnVal = DataList::quiz($type, $course_id, $topic_id, $content_id);
+						break;
 					default :
 						$returnVal = DataList::course($display, $type, $parent);
 						break;
@@ -205,6 +220,17 @@ namespace sabreHcode {
 				$aCategoryTree = $oCategoryInstance -> getCategoriesTree($parent, $display, $type);
 				return $aCategoryTree;
 				//array("expanded" => true, "children" => );
+			}
+		}
+		
+		public static function quiz($type, $course_id, $topic_id, $content_id) {
+			\sabreHcode\configuration\Application::load("\sabreHcode\data\service\Quiz");
+
+			$oQuizInstance = new Quiz(Database::load());
+
+			if ($type == 'single') {
+				$aAllSingleQuizList = $oQuizInstance -> getAllSingleQuiz($course_id, $topic_id, $content_id);
+				return $aAllSingleQuizList;
 			}
 		}
 

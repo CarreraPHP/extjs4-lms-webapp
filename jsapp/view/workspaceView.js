@@ -59,6 +59,9 @@ Ext.define('MyApp.view.workspaceView', {
                 },{
                 	xtype : 'replyforumview',
                 	itemId : 'reply-forum-view'
+                },{
+                	xtype : 'contentquizview',
+                	itemId : 'content-quiz-view'
                 }]
             }, {
                 xtype : 'tabpanel',

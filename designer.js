@@ -11,7 +11,7 @@ Ext.application({
     appFolder: 'jsapp',
     autoCreateViewport: true,
     name: 'MyApp',
-    controllers: [ 'abControl', 'wsControl', 'accessControl', 'cgControl'],
+    controllers: [ 'abControl', 'wsControl', 'accessControl', 'cgControl','quizControl'],
     launch: function() {
     	
     }

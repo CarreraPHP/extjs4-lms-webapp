@@ -4,9 +4,9 @@
 
 Ext.define('MyApp.controller.wsControl', {
 	extend : 'Ext.app.Controller',
-	models : ['courseModel', 'chartModel', 'categoryModel', 'contentModel', 'contentTypeModel', 'resourceModel', 'courseAccessModel', 'accessTCModel', 'forumModel', 'commentModel'],
-	stores : ['courseStore', 'chartStore', 'categoryTreeStore', 'contentStore', 'contentTypeStore', 'resourceStore', 'courseAccessStore', 'accessTCStore', 'forumStore', 'commentStore'],
-	views : ['workspaceView', 'CategoryTreeView', 'CKEditor', 'ContentGridView', 'AddTopicView', 'chartView', 'ContentDisplayView', 'advancesearchView', 'HomeScreenView', 'CourseAccessView', 'ContentFullScreenView', 'ContentForumView', 'AddForumTopicView', 'ForumThreadView', 'ReplyForumView'],
+	models : ['courseModel', 'chartModel', 'categoryModel', 'contentModel', 'contentTypeModel', 'resourceModel', 'courseAccessModel', 'accessTCModel', 'forumModel', 'commentModel', 'singleQuizModel', 'resultChartModel', 'quizTypeModel'],
+	stores : ['courseStore', 'chartStore', 'categoryTreeStore', 'contentStore', 'contentTypeStore', 'resourceStore', 'courseAccessStore', 'accessTCStore', 'forumStore', 'commentStore', 'singleQuizStore', 'resultChartStore', 'quizTypeStore'],
+	views : ['workspaceView', 'CategoryTreeView', 'CKEditor', 'ContentGridView', 'AddTopicView', 'chartView', 'ContentDisplayView', 'advancesearchView', 'HomeScreenView', 'CourseAccessView', 'ContentFullScreenView', 'ContentForumView', 'AddForumTopicView', 'ForumThreadView', 'ReplyForumView', 'ContentQuizView', 'SingleChoiceQuizView', 'SingleChoiceResultView', 'EditSingleChoiceQuizView'],
 	init : function() {
 		this.control({
 			'categorytreeview' : {

@@ -11,7 +11,7 @@ $language = isset($_GET["lang"]) ? $_GET["lang"] : "eng";
         <title>Sabre LMS - Mock Tool</title>
         <link rel="stylesheet" type="text/css" href="js/lib/ext-4.0/resources/css/ext-all.css"/>
         <link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
-        <script type="text/javascript" src="js/lib/ext-4.0/ext-all-debug.js"></script>
+        <script type="text/javascript" src="js/lib/ext-4.0/ext-all-debug-w-comments.js"></script>
         <script type="text/javascript" src="js/lib/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="jsapp/util/lang/<?php echo $language; ?>.js"></script>
         <script type="text/javascript" src="jsapp/util/base64.js"></script>
@@ -19,7 +19,7 @@ $language = isset($_GET["lang"]) ? $_GET["lang"] : "eng";
         <script type="text/javascript" src="js/Notification.js"></script>
         <script type="text/javascript" src="js/loadMaskOverride.js"></script>
         <!--<script type="text/javascript" src="js/treeStoreOverride.js"></script>-->
-        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="designer.js"></script>
         <script type="text/javascript" src="jsapp/util/dBoardDropZone.js"></script>
         <script type="text/javascript" src="jsapp/util/swfobject.js"></script>
 

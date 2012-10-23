@@ -10,7 +10,7 @@ Ext.define('MyApp.view.ForumThreadView', {
 		type : 'vbox'
 	},
 	//bodyPadding : 5,
-	autoScroll : false,
+	autoScroll : true,
 	currentGrid : '',
 	loadedData : {},
 	loadRecord : function(record) {
@@ -23,49 +23,95 @@ Ext.define('MyApp.view.ForumThreadView', {
 		var me = this;
 		Ext.applyIf(me, {
 			items : [{
-				xtype : 'panel',
-				height : 208,
-				width : 665,
-				flex : 0.25,
-				itemId : 'forumThread',
-				bodyPadding : 5,
-				region : 'center',
-				split : true,
-				autoScroll : true,
-				layout : 'fit',
-				tpl : ['<div><b><span>{name}</span><span style="padding-left:960px;">{created_date}</span><br /><span>{username}</span></b></div><hr /><br /><div>{description}</div>']
-			}, {
-				xtype : 'panel',
-				border : true,
-				height : 276,
-				bodyPadding : 5,
-				autoScroll : true,
-				title : 'Forum Reply',
-				id : 'replyPanel',
-				flex : 1,
-				layout : {
-					type : 'fit'
-				},
-				viewConfig : {
-					loadMask : false
-				},
-				
-				items : [{
 					xtype : 'dataview',
-					autoScroll : true,
+					padding: 5,
 					itemId : 'replyThread',
-					tpl : ['<tpl for=".">', '<div class="userList"><b><span>{user_email}</span></b><br /><span style="padding-left:1140px;">{created_date}</span><br /><br /><span style="padding-left:40px;">{content_text}</span><hr /></div>', '</tpl>'],
-					itemSelector: '.userList',
+					tpl : [
+						'<tpl for=".">',
+							'<div class="forum-item">',
+								'<div>',
+									'<div class="forum-title">&nbsp;</div>',
+									'<div class="forum-date">{created_date}</div>',
+								'</div>',
+								'<div class="forum-desc">{content_text}</div>',
+								'<div class="forum-user">{user_email}</div>',
+							'</div>',
+							'<div class="clear-fix"></div>',
+						'</tpl>'
+					],					
+					itemSelector : '.forum-item',
 					singleSelect : true,
-					emptyText : 'No Users available Here',
-					store : Ext.create('MyApp.store.commentStore')
+					emptyText : 'No Forum Reply available Here',
+					store : Ext.create('MyApp.store.commentStore'),
+					listeners : {
+						itemcontextmenu : function(view, record, el, index, e, eOpts) {
+							e.preventDefault();
+							x = e.browserEvent.clientX;
+							y = e.browserEvent.clientY;
+							e.stopEvent();
+							var menu = Ext.create('Ext.menu.Menu', {
+								items : [{
+									text : lang.deleteLabel,
+									iconCls : 'delete-button',
+									itemId : 'forumDelete',
+									scope : this,
+									handler : function() {
+										Ext.Ajax.request({
+											url : 'data/Delete.php',
+											method : 'post',
+											params : {
+												"id" : record.data.content_id,
+												"module" : "content",
+												"type" : "Forum",
+												"user" : record.data.user_email
+												
+											},
+											scope : this,
+											failure : function(response) {
+												Ext.create('Ext.ux.window.Notification', {
+													hideDuration : 500,
+													autoHideDelay : 7000,
+													slideInAnimation : 'bounceOut',
+													slideBackAnimation : 'easeIn',
+													cls : 'ux-notification-light',
+													stickOnClick : true,
+													stickWhileHover : true,
+													title : 'Selection',
+													position : 't',
+													spacing : 20,
+													html : lang.failure.deleteCategory
+												}).show();
+											},
+											success : function(response) {
+												this.store.load();
+												window.msg = Ext.decode(response.responseText);
+												
+												Ext.create('Ext.ux.window.Notification', {
+													hideDuration : 500,
+													autoHideDelay : 7000,
+													slideInAnimation : 'bounceOut',
+													slideBackAnimation : 'easeIn',
+													cls : 'ux-notification-light',
+													stickOnClick : true,
+													stickWhileHover : true,
+													title : 'Content',
+													position : 't',
+													spacing : 20,
+													html : window.msg.message
+												}).show();
+											}
+										});
+									}
+								}]
+							});
+							menu.showAt(e.xy);
+						}
+					}
 
-				}]
-			}],
+				}],
 			dockedItems : [{
 				xtype : 'toolbar',
 				dock : 'top',
-
 				items : [{
 					xtype : 'button',
 					text : 'back',
@@ -79,48 +125,56 @@ Ext.define('MyApp.view.ForumThreadView', {
 						currCon[0].getLayout().setActiveItem('content-panel');
 					}
 				}, '->', {
-					xtype : 'container',
-					itemId : 'title',
-					tpl : ['<div><b>{name}</b></div>']
-				}, '->', {
-					xtype : 'button',
-					text : 'Reply Thread',
-					iconCls : 'reply-button'
-					
-				}, {
-					xtype : 'tbseparator'
-				}, {
 					xtype : 'button',
 					text : lang.refresh,
 					scope : this,
 					iconCls : 'refresh-button',
 					handler : function() {
 						// do refresh
-						var o = Ext.ComponentQuery.query('contentforumview #forumTopic'), grid = o[0];
+						/*var o = Ext.ComponentQuery.query('contentforumview'), grid = o[0];
 						var index = grid.getStore().indexOf(me.SelectedRecord);
+						console.log(index);
 						var rec = grid.getStore().getAt(index);
 						me.SelectedRecord = rec;
-						me.loadRecord(rec);
+						me.loadRecord(rec);*/
 						var o = Ext.ComponentQuery.query('forumthreadview #replyThread'), panel = o[0];
-						//console.log(panel);
 						panel.getStore().load();
 
 					}
 				}]
 			},{
+					dock:  'top',
+				xtype : 'panel',				
+				itemId : 'forumThread',
+				bodyPadding : 5,
+				region : 'center',
+				split : true,
+				autoHeight: true,
+				width: '100%',		
+				tpl : [
+					'<tpl for=".">',
+						'<div class="forum-item">',
+							'<div>',
+								'<div class="forum-title">{name}</div>',
+								'<div class="forum-date">{created_date}</div>',
+							'</div>',
+							'<div class="forum-desc">{description}</div>',
+							'<div class="forum-user">{username}</div>',
+						'</div>',
+						'<div class="clear-fix"></div>',
+					'</tpl>',
+				]
+			},{
 				xtype : 'toolbar',
-				dock : 'bottom',
-				layout : {
-					pack : 'end'	
-				},
-				items : [{
+				dock : 'top',
+				items : ['->', {
+					xtype : 'tbseparator'
+				},{
 					xtype : 'button',
-					disabled : true,
-					text : lang.deleteLabel,
-					iconCls : 'delete-button',
-					itemId : 'delete-reply'
+					text : 'Reply Thread',
+					iconCls : 'reply-button'
+
 				}]
-				
 			}]
 
 		});

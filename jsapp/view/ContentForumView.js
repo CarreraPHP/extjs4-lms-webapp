@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.ContentForumView', {
-	extend : 'Ext.panel.Panel',
+	extend : 'Ext.grid.Panel',
 	alias : 'widget.contentforumview',
 	mixins : {
 		moduleLayout : 'MyApp.mixin.ModuleLayout'
@@ -9,19 +9,12 @@ Ext.define('MyApp.view.ContentForumView', {
 		type : 'fit',
 		align : 'stretch'
 	},
-
+	store : 'forumStore',
+	border: true,
 	initComponent : function() {
 		var me = this;
-		Ext.applyIf(me, {
-			items : [{
-				xtype : 'gridpanel',
-				title : lang.queries,
-				autoScroll : true,
-				margin : '0 1 0 0',
-				bodyPadding : 5,
-				border : true,
-				itemId : 'forumTopic',
-				store : 'forumStore',
+		Ext.applyIf(me, {				
+				autoScroll : true,				
 				flex : 1,
 				columns : [{
 					header : lang.topicname,
@@ -31,24 +24,14 @@ Ext.define('MyApp.view.ContentForumView', {
 						xtype : 'textfield',
 						allowBlank : false
 					}
-
 				}, {
 					header : lang.createdBy,
-					dataIndex : 'username',
+					dataIndex : 'user_email',
 					flex : 1,
-					field : {
-						xtype : 'textfield',
-						allowBlank : false
-					}
 				}, {
 					header : lang.createdDate,
 					dataIndex : 'created_date',
 					flex : 1
-				}, {
-					header : 'course id',
-					id : 'courseId',
-					dataIndex : 'course_id',
-					hidden : true
 				}, {
 					xtype : 'actioncolumn',
 					header : lang.action,
@@ -57,7 +40,6 @@ Ext.define('MyApp.view.ContentForumView', {
 						icon : 'resources/images/icons/monitor.png', // Use a URL in the icon config
 						tooltip : lang.view,
 						handler : function(grid, rowIndex, colIndex, item, e, record) {
-
 							var rec = grid.getStore().getAt(rowIndex);
 							var appArr = Ext.ComponentQuery.query('workspaceview container[region="center"]');
 							var appViewInstance = appArr[0];
@@ -72,7 +54,7 @@ Ext.define('MyApp.view.ContentForumView', {
 							appViewInstance.hide();
 							var forum = Ext.ComponentQuery.query('forumthreadview #replyThread');
 							var reply = forum[0];
-							reply.store.proxy.extraParams.parent = rec.data.course_id;
+							reply.store.proxy.extraParams.parent = rec.data.id;
 							reply.store.load();
 						}
 					}, {
@@ -162,8 +144,7 @@ Ext.define('MyApp.view.ContentForumView', {
 					}]
 				}]
 
-			}]
-		});
+			});
 
 		me.callParent(arguments);
 	}

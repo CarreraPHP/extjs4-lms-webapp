@@ -80,7 +80,7 @@ namespace sabreHcode\data\service {
 				$sSql .= "AND `pt_topics`.`id` NOT IN($topicIds)";
 			}
 			// $sSql .= "GROUP BY ``pt_topics`.`id`";
-
+                        
 			$oResult = $this -> _oDbInstance -> query($sSql);
 
 			$dump = 1;
@@ -110,17 +110,16 @@ namespace sabreHcode\data\service {
 				$user_name = $_SESSION['userDetails'][0]['user_email'];
 				$parent = substr("$parent", 3);
 				if(isset($type) && $type == ''){
-					$sql = "SELECT `id`, `name`, `description`, `created_date`, `course_id`, `type_id` FROM `sabre`.`pt_topics` WHERE `course_id` = '$parent' AND `type_id` = '9' AND `deleted` = 'F'";
+					$sql = "SELECT m1.`id`, m1.`name`, m1.`description`, m1.`created_date`, m1.`course_id`, m1.`type_id`, m2.`user_email` ";
+					$sql .= " FROM `sabre`.`pt_topics` AS m1 LEFT JOIN `sabre`.`pt_user` AS m2 ON m1.`created_by` = m2.`id` WHERE m1.`course_id` = '$parent' AND m1.`type_id` = '9' AND m1.`deleted` = 'F'";
 					$oResult = $this -> _oDbInstance -> query($sql);
 					if ($oResult -> num_rows > 0) {
 						$i = 0;
 						while ($aRecord = $oResult -> fetch_assoc()) {
 							if (date('Y-m-d', strtotime($aRecord['created_date'])) == date('Y-m-d')) {
-								$aRecord['created_date'] = "Today ," . date('h:i:s', strtotime($aRecord['created_date']));
+								$aRecord['created_date'] = "Today, " . date('h:i:s', strtotime($aRecord['created_date']));
 							}
 							$aRecordCollection[] = $aRecord;
-							$aRecordCollection[$i]['username'] = $user_name;
-							$i++;
 						}
 	
 						return $aRecordCollection;
@@ -135,7 +134,7 @@ namespace sabreHcode\data\service {
 						$i = 0;
 						while ($Record = $Result -> fetch_assoc()) {
 							if (date('Y-m-d', strtotime($Record['created_date'])) == date('Y-m-d')) {
-								$Record['created_date'] = "Today ," . date('h:i:s', strtotime($Record['created_date']));
+								$Record['created_date'] = "Today, " . date('h:i:s', strtotime($Record['created_date']));
 							}
 							$aRecordCollection[] = $Record;
 						}
@@ -151,10 +150,10 @@ namespace sabreHcode\data\service {
 				$user_id = $_SESSION['userDetails'][0]['id'];
 				//$parent =  substr("$parent", 3);
 				
-				$sql = "SELECT m1.`id` AS topic_id, m2.`text` AS content_text, m2.created_date, m3.user_email FROM `sabre`.`pt_topics` AS m1 ";
+				$sql = "SELECT m1.`id` AS topic_id, m2.`id` AS content_id, m2.`text` AS content_text, m2.created_date, m3.user_email FROM `sabre`.`pt_topics` AS m1 ";
 				$sql .= "LEFT JOIN `sabre`.`pt_content` AS m2 ON m1.`id` = m2.`topic_id` ";
 				$sql .= "LEFT JOIN `sabre`.`pt_user` AS m3 ON m2.created_by = m3.id ";
-				$sql .= "WHERE m1.`type_id` = '9' AND m1.`deleted` = 'F' AND m1.course_id = '$parent'";
+				$sql .= "WHERE m2.`type_id` = '9' AND m2.`deleted` = 'F' AND m2.topic_id = '$parent'";
 				$Result = $this -> _oDbInstance -> query($sql);
 				if ($Result -> num_rows > 0) {
 					$i = 0;

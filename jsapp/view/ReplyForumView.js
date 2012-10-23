@@ -35,13 +35,6 @@ Ext.define('MyApp.view.ReplyForumView', {
 					anchor : '100%',
 					readOnly : true,
 					labelWidth : 70,
-				}, {
-					xtype : 'textfield',
-					name : 'description',
-					fieldLabel : 'Forum description',
-					anchor : '100%',
-					readOnly : true,
-					labelWidth : 70,
 				},{
 					xtype : 'ckeditor',
 					fieldLabel : 'Reply',

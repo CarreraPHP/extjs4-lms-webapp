@@ -16,7 +16,7 @@
 Ext.define('MyApp.store.userRoleStore', {
     extend: 'Ext.data.Store',
     requires: [
-        'MyApp.model.userRoleModel'
+    'MyApp.model.userRoleModel'
     ],
 	
     constructor: function(cfg) {
@@ -25,17 +25,17 @@ Ext.define('MyApp.store.userRoleStore', {
         me.callParent([Ext.apply({
             autoLoad: true,
             autoSync: true,	
-			storeId: 'SabUserRoleStore',
+            storeId: 'SabUserRoleStore',
             model: 'MyApp.model.userRoleModel',
             proxy: {
                 type: 'ajax',
                 method: 'POST',
                 //url: 'data/DataList.php',
-				api: {
-		            read: 'data/DataList.php',
-		        },
+                api: {
+                    read: 'data/DataList.php'
+                },
                 extraParams: {
-                	module: 'userRole'
+                    module: 'userRole'
                 },
                 reader: {
                     type: 'json',
@@ -45,7 +45,7 @@ Ext.define('MyApp.store.userRoleStore', {
                     totalProperty: 'total',
                     root: 'data'
                 }
-		    }
+            }
         }, cfg)]);
     }
 });
