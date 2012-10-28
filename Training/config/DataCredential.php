@@ -1,11 +1,13 @@
 <?PHP
 
+date_default_timezone_set('Asia/Kolkata');
+
 class DataCredential {
 
-	public static $host = "192.168.1.172";
+	public static $host = "localhost";
 	public static $db = "sabretraining";
 	public static $user = "root";
-	public static $passwd = "phptl@40";
+	public static $passwd = "";
 
 }
 

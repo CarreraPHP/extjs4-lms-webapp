@@ -25,7 +25,7 @@ Ext.onReady(function () {
 		model: model,
 		proxy: {
 			type: 'ajax',
-			url: '../../../data/Catalog.php?page=TrainingCatalog&resType=tree',
+			url: (window.location.href.indexOf("example") == -1) ? 'data.php' : dataPath,
 			reader: {
 				type: 'json',
 				root: 'children'

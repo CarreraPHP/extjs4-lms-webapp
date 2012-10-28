@@ -1,6 +1,13 @@
-<?PHP
+<?php
 
-class source {
+/**
+ * Description of example
+ *
+ * @author dasz
+ */
+date_default_timezone_set('Asia/Kolkata');
+
+class example {
 
     public $sourceUrl;
     public $type;
@@ -9,23 +16,21 @@ class source {
         $this->type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 'html';
         $this->sourceUrl = isset($_REQUEST['source']) ? $_REQUEST['source'] : 'day/1/Border_layout_and_Viewport/index.html';
 
+        $dataPathContent = "<script type=\"text/javascript\">var dataPath = \"" . str_replace("index.html", "data.php", $this->sourceUrl) . "\";</script>";
+
         if (file_exists($this->sourceUrl)) {
-            $content = htmlentities(
-                    trim(
-                            str_ireplace(
-                                    "<?PHP", '', str_ireplace(
-                                            "?>", '', file_get_contents($this->sourceUrl)
+            $returnStr = trim(
+                    str_replace(
+                            "../../../", '', str_replace(
+                                    "app.js", str_replace("index.html", "app.js", $this->sourceUrl), str_replace(
+                                            "</head>", "\t" . $dataPathContent . "\n" . "</head>", file_get_contents($this->sourceUrl)
                                     )
                             )
                     )
             );
-            if(strlen($content) > 1){
-                $returnStr = str_replace("#-REP-#", $content, $this->generateHtmlContent());
-            }else{
-                $returnStr = str_replace("#-REP-#", "NO CONTENT", $this->generateHtmlContent());
-            }            
         } else {
-            $returnStr = str_replace("#-REP-#", "NO CONTENT", $this->generateHtmlContent());
+            $returnStr = str_replace(
+                    "#-REP-#", "NO EXAMPLE AVAILABLE", $this->generateHtmlContent());
         }
 
         echo $returnStr;
@@ -38,7 +43,7 @@ class source {
         $source .= "<link rel='stylesheet' type='text/css' href='lib/prettify/prettify.css' />";
         $source .= "<script src='lib/prettify/prettify.js' lang='javascript' type='text/javascript'></script>";
         $source .= "</HEAD>";
-        $source .= "<BODY onload=\"prettyPrint()\">";
+        $source .= "<BODY onload=\"prettyPrint()\" style=\"background:halfgray;\">";
         $source .= "<pre class=\"prettyprint linenums:4\">";
         $source .= "<code class=\"language-" . $this->type . "\">";
         $source .= "#-REP-#";
@@ -51,5 +56,5 @@ class source {
 
 }
 
-new source();
+new example();
 ?>

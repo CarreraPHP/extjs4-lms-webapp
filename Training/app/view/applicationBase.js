@@ -11,19 +11,10 @@ Ext.define('App.view.applicationBase', {
 
         Ext.applyIf(me, {
             items : [{
-                xtype : 'container',
-                itemId : 'application-base',
-                layout : {
-                    type : 'fit'
-                },
-                margin : '0 0 0 5',
+                xtype : 'workspaceview',
                 region : 'center',
                 split : true,
-                items : [{
-                    xtype : 'workspaceview',
-                    itemId : 'ws-view-card',
-                    width : 150
-                }]
+                itemId : 'ws-view-card'                    
             }, {
                 xtype : 'toolbar',
                 frame : true,
@@ -41,8 +32,8 @@ Ext.define('App.view.applicationBase', {
                 region : 'west',
                 title: 'Tree Layout',
                 itemId : 'tree-Panel',
-                width: 250,
-                height: 300,
+                split: true,
+                width: 250,                
                 rootVisible: false,
                 displayField : 'name',
                 store : Ext.create('App.store.CatalogTreeStore')

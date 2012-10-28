@@ -12,25 +12,41 @@ Ext.define('App.view.workspaceView', {
 			items : [{
 				xtype : 'box',
 				itemId : 'dataDisplay',
-				frame : false,
-				flex : 1,
-				border : true,
-				autoScroll : true,
-				bodyPadding : 5,
 				autoEl: {
 					tag: 'iframe',
 					src: '',
 					style: {
-						'border' : false
+						'border' : 0
 					}
 				}
 			},{
 				xtype : 'box',
+                                itemId: 'htmlSource',
 				autoEl: {
 					tag: 'iframe',
 					src: '',
 					style: {
-						'border' : false
+						'border' : 0
+					}
+				}
+			},{
+				xtype : 'box',
+                                itemId: 'jsSource',
+				autoEl: {
+					tag: 'iframe',
+					src: '',
+					style: {
+						'border' : 0
+					}
+				}
+			},{
+				xtype : 'box',
+                                itemId: 'phpSource',
+				autoEl: {
+					tag: 'iframe',
+					src: '',
+					style: {
+						'border' : 0
 					}
 				}
 			}],
@@ -41,8 +57,26 @@ Ext.define('App.view.workspaceView', {
 					pack : 'end'
 				},
 				items : [{
-					text : 'View Source',
-					itemId : 'view-source',
+					text : 'demo',
+					itemId : 'view-demo',
+					iconCls : 'view-source-button',
+					enableToggle : true
+				}, '|',{
+                                        xtype: 'tbtext',
+					text : 'Source : '
+				},{
+					text : 'html',
+					itemId : 'view-html',
+					iconCls : 'view-source-button',
+					enableToggle : true
+				},{
+					text : 'js',
+					itemId : 'view-js',
+					iconCls : 'view-source-button',
+					enableToggle : true
+				},{
+					text : 'php',
+					itemId : 'view-php',
 					iconCls : 'view-source-button',
 					enableToggle : true
 				}]

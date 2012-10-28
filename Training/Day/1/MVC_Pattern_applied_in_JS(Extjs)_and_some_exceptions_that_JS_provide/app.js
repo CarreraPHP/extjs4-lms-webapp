@@ -86,28 +86,30 @@ Ext.application({
                 region: 'north',
                 //contentEl: 'header',content read from html in gsp
                 html: "This is my temp header",
-                id: 'mainHeader'
+                id: 'mainHeader',
+                split: true
             }, {
                 region: 'east',
                 width: 40,
-                html: 'This is East'
+                html: 'This is East',
+                split: true
             }, {
                 region: 'south',
                 //contentEl: 'footer',
                 //content read from html in gsp
                 html: "This is my temp footer content",
                 height: 30,
-                margins: '0 5 5 5',
                 bodyPadding: 2,
                 // internal text padding
-                id: 'mainFooter'
+                id: 'mainFooter',
+                split: true
             }, {
                 id: 'mainContent',
                 //content injected by the controller
                 collapsible: false,
                 region: 'center',
+                split: true,
                 //layout: 'fit',
-                margins: '5',
                 border: true,
                 tbar: [{
                     xtype: 'button',
